@@ -16,14 +16,12 @@ const HabitCard = ({ habit, onToggle, onDelete }) => {
         >
           {habit.doneToday ? 'Desmarcar' : 'Hecho'}
         </button>
-        {onDelete && (
-          <button
-            onClick={() => onDelete(habit.id)}
-            className="px-3 py-1 bg-red-500 text-white rounded"
-          >
-            🗑️
-          </button>
-        )}
+        <button
+					onClick={() => onDelete(habit.id)}
+					className="px-3 py-1 bg-red-500 text-white rounded"
+					>
+					🗑️
+				</button>
       </div>
     </div>
   );

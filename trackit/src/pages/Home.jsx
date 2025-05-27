@@ -24,8 +24,16 @@ const Home = () => {
     setNewHabit('');
   };
 
+  const deleteHabit = (id) => {
+		setHabits((prev) => prev.filter((habit) => habit.id !== id));
+	};
+
   return (
-    <div className="max-w-xl mx-auto mt-10 px-4">
+		<div className="min-h-screen flex items-center justify-center">
+			<div className="max-w-xl w-full px-4">
+
+    {/* // <div className="max-w-xl mx-auto mt-10 px-4"> */}
+
       <h1 className="text-2xl font-bold mb-6">Mis hábitos</h1>
 
       <div className="flex mb-6 gap-2">
@@ -45,12 +53,15 @@ const Home = () => {
       </div>
 
       {habits.map((habit) => (
-        <HabitCard
-          key={habit.id}
-          habit={habit}
-          onToggle={toggleHabit}
-        />
+				<HabitCard
+					key={habit.id}
+					habit={habit}
+					onToggle={toggleHabit}
+					onDelete={deleteHabit}
+				/>
       ))}
+			</div>
+
     </div>
   );
 };
