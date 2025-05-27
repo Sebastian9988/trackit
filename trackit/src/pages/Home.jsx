@@ -6,6 +6,7 @@ const Home = () => {
     { id: 1, name: 'Leer 20 minutos', doneToday: false },
     { id: 2, name: 'Entrenar', doneToday: true },
   ]);
+  const [newHabit, setNewHabit] = useState('');
 
   const toggleHabit = (id) => {
     setHabits((prev) =>
@@ -15,9 +16,34 @@ const Home = () => {
     );
   };
 
+  const addHabit = () => {
+    if (newHabit.trim() === '') return;
+
+    const newId = Math.max(...habits.map(h => h.id)) + 1;
+    setHabits([...habits, { id: newId, name: newHabit, doneToday: false }]);
+    setNewHabit('');
+  };
+
   return (
     <div className="max-w-xl mx-auto mt-10 px-4">
       <h1 className="text-2xl font-bold mb-6">Mis hábitos</h1>
+
+      <div className="flex mb-6 gap-2">
+        <input
+          type="text"
+          placeholder="Nuevo hábito"
+          value={newHabit}
+          onChange={(e) => setNewHabit(e.target.value)}
+          className="flex-grow border border-gray-300 rounded px-3 py-2"
+        />
+        <button
+          onClick={addHabit}
+          className="bg-blue-500 text-white px-4 py-2 rounded"
+        >
+          Agregar
+        </button>
+      </div>
+
       {habits.map((habit) => (
         <HabitCard
           key={habit.id}
