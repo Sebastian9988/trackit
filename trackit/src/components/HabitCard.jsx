@@ -1,8 +1,9 @@
 import dayjs from 'dayjs';
 
 const HabitCard = ({ habit, onToggle, onDelete }) => {
+	const {completed_dates: completedDates = [], done_today: doneToday} = habit;
 	const totalDays = 7;
-	const datesSet = new Set(habit.completedDates);
+	const datesSet = new Set(completedDates);
 	const now = dayjs();
 
 	let completed = 0;
@@ -18,7 +19,7 @@ const HabitCard = ({ habit, onToggle, onDelete }) => {
       <div>
         <h2 className="text-lg font-semibold">{habit.name}</h2>
         <p className="text-sm text-gray-500">
-          {habit.doneToday ? 'Completado hoy ✅' : 'Pendiente ❌'}
+          {doneToday ? 'Completado hoy ✅' : 'Pendiente ❌'}
         </p>
       </div>
 			
@@ -26,10 +27,10 @@ const HabitCard = ({ habit, onToggle, onDelete }) => {
         <button
           onClick={() => onToggle(habit.id)}
           className={`px-3 py-1 rounded text-white ${
-            habit.doneToday ? 'bg-gray-500' : 'bg-green-500'
+            doneToday ? 'bg-gray-500' : 'bg-green-500'
           }`}
         >
-          {habit.doneToday ? 'Desmarcar' : 'Hecho'}
+          {doneToday ? 'Desmarcar' : 'Hecho'}
         </button>
         <button
 					onClick={() => onDelete(habit.id)}
@@ -44,7 +45,7 @@ const HabitCard = ({ habit, onToggle, onDelete }) => {
 				<h3 className="text-white font-bold">Versión A: Contador</h3>
 				{/* contador simple */}
 				<p className="text-sm text-white">
-					Lo hiciste {habit.completedDates.length} días en total.
+					Lo hiciste {completedDates?.length || 0} días en total.
 				</p>
 			</div>
 			<div>
